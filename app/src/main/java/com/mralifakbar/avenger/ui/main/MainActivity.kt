@@ -15,6 +15,7 @@ import com.mralifakbar.avenger.data.model.Hero
 import com.mralifakbar.avenger.databinding.ActivityMainBinding
 import com.mralifakbar.avenger.databinding.ItemHeroesBinding
 import com.mralifakbar.avenger.ui.adapter.ListHeroAdapter
+import com.mralifakbar.avenger.ui.detail.DetailActivity
 import com.mralifakbar.avenger.utils.ViewModelFactory
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +29,12 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         mainViewModel = obtainViewModel(this)
 
@@ -58,11 +65,10 @@ class MainActivity : AppCompatActivity() {
     private fun setHeroesData(hero: List<Hero>) {
         adapter = ListHeroAdapter(object : ListHeroAdapter.OnItemClick {
             override fun onItemClicked(data: Hero) {
-//                Intent(this@MainActivity, DetailUserActivity::class.java).also {
-//                    it.putExtra(DetailUserActivity.EXTRA_USERNAME, data.username)
-//                    it.putExtra(DetailUserActivity.EXTRA_AVATAR_URL, data.avatarUrl)
-//                    startActivity(it)
-//                }
+                Intent(this@MainActivity, DetailActivity::class.java).also {
+                    it.putExtra(DetailActivity.EXTRA_ID, data.id)
+                    startActivity(it)
+                }
             }
         })
 

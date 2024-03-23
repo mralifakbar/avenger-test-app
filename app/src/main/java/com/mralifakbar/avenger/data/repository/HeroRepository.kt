@@ -19,6 +19,8 @@ class HeroRepository(application: Application) {
 
     fun getAllHeroes(): LiveData<List<Hero>> = mHeroDao.getAllHeroes()
 
+    fun getDetailHero(id: Int): LiveData<Hero> = mHeroDao.getDetailHero(id)
+
     fun update(hero: Hero) {
         executorService.execute { mHeroDao.update(hero) }
     }

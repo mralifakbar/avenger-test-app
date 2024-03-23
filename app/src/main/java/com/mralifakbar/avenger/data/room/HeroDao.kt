@@ -13,4 +13,7 @@ interface HeroDao {
 
     @Query("SELECT * FROM hero ORDER BY id ASC")
     fun getAllHeroes(): LiveData<List<Hero>>
+
+    @Query("SELECT * FROM hero WHERE id =:id")
+    fun getDetailHero(id: Int): LiveData<Hero>
 }

@@ -3,6 +3,7 @@ package com.mralifakbar.avenger.utils
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mralifakbar.avenger.ui.detail.DetailViewModel
 import com.mralifakbar.avenger.ui.main.MainViewModel
 
 class ViewModelFactory constructor(private val mApplication: Application) : ViewModelProvider.NewInstanceFactory() {
@@ -24,6 +25,8 @@ class ViewModelFactory constructor(private val mApplication: Application) : View
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return  MainViewModel(mApplication) as T
+        } else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+            return DetailViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class ${modelClass.name}")
     }
