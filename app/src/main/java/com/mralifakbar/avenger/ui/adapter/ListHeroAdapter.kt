@@ -2,9 +2,11 @@ package com.mralifakbar.avenger.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mralifakbar.avenger.R
 import com.mralifakbar.avenger.data.model.Hero
 import com.mralifakbar.avenger.databinding.ItemHeroesBinding
 
@@ -27,6 +29,14 @@ class ListHeroAdapter(var onItemClick: OnItemClick): ListAdapter<Hero, ListHeroA
             with(binding) {
                 tvHeroesName.text = hero.name
                 tvHeroesRating.text = hero.rating
+
+                if (hero.name == "Super Man") {
+                    ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.superman))
+                } else if (hero.name == "Hulk") {
+                    ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.avenger_hulk))
+                } else {
+                    ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.avenger_ironman))
+                }
 
                 root.setOnClickListener {
                     onItemClick.onItemClicked(hero)

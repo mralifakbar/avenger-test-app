@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.mralifakbar.avenger.data.model.Hero
 
 @Database(
@@ -24,7 +25,14 @@ abstract class HeroDatabase : RoomDatabase() {
                     context.applicationContext,
                     HeroDatabase::class.java,
                     "Hero.db"
-                ).build()
+                ).addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        db.execSQL("INSERT INTO hero (name, rating) VALUES ('Super Man', 'Very Good')")
+                        db.execSQL("INSERT INTO hero (name, rating) VALUES ('Iron Man', 'Normal')")
+                        db.execSQL("INSERT INTO hero (name, rating) VALUES ('Hulk', 'Awesome')")
+                    }
+                }).build()
             }
     }
 }

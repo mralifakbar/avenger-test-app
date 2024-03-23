@@ -52,7 +52,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.liveda)
     implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
+    kapt(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

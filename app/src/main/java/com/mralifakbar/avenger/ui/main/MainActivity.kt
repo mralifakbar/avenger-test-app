@@ -29,10 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        )[MainViewModel::class.java]
+        mainViewModel = obtainViewModel(this)
 
 
         val layoutManager = LinearLayoutManager(this)
@@ -41,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        setObserver()
     }
 
     private fun setObserver() {
@@ -50,6 +48,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[MainViewModel::class.java]
+    }
+
 
     private fun setHeroesData(hero: List<Hero>) {
         adapter = ListHeroAdapter(object : ListHeroAdapter.OnItemClick {
