@@ -3,6 +3,7 @@ package com.mralifakbar.avenger.ui.detail
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
@@ -38,7 +39,24 @@ class DetailActivity : AppCompatActivity() {
             with(binding) {
                 toolbar.title = it.name ?: "Hero"
 
+                if (it.name == "Super Man") {
+                    ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.superman))
+                } else if (it.name == "Hulk") {
+                    ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.avenger_hulk))
+                } else {
+                    ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.avenger_ironman))
+                }
 
+                if (it.rating == "Normal") {
+                    star1.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
+                } else if (it.rating == "Very Good") {
+                    star1.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
+                    star2.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
+                } else {
+                    star1.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
+                    star2.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
+                    star3.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
+                }
             }
         }
     }
