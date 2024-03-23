@@ -10,4 +10,6 @@ class DetailViewModel(application: Application): ViewModel() {
     private val mHeroRepository: HeroRepository = HeroRepository(application)
 
     fun getDetailHero(id: Int): LiveData<Hero> = mHeroRepository.getDetailHero(id)
+
+    fun updateHero(hero: Hero) = mHeroRepository.update(hero)
 }

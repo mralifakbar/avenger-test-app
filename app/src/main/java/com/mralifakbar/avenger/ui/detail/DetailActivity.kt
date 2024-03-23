@@ -35,27 +35,40 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setObserver() {
-        detailViewModel.getDetailHero(intent.getIntExtra(EXTRA_ID, 0)).observe(this) {
+        detailViewModel.getDetailHero(intent.getIntExtra(EXTRA_ID, 0)).observe(this) {hero ->
             with(binding) {
-                toolbar.title = it.name ?: "Hero"
+                toolbar.title = hero.name ?: "Hero"
 
-                if (it.name == "Super Man") {
+                if (hero.name == "Super Man") {
                     ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.superman))
-                } else if (it.name == "Hulk") {
+                } else if (hero.name == "Hulk") {
                     ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.avenger_hulk))
                 } else {
                     ivHeroesImage.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.avenger_ironman))
                 }
 
-                if (it.rating == "Normal") {
+                if (hero.rating == "Normal") {
                     star1.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
-                } else if (it.rating == "Very Good") {
+                    star2.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star))
+                    star3.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star))
+                } else if (hero.rating == "Very Good") {
                     star1.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
                     star2.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
+                    star3.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star))
                 } else {
                     star1.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
                     star2.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
                     star3.setImageDrawable(ContextCompat.getDrawable(ivHeroesImage.context, R.drawable.star_2))
+                }
+
+                star1.setOnClickListener {
+                    detailViewModel.updateHero(hero.copy(rating = "Normal"))
+                }
+                star2.setOnClickListener {
+                    detailViewModel.updateHero(hero.copy(rating = "Very Good"))
+                }
+                star3.setOnClickListener {
+                    detailViewModel.updateHero(hero.copy(rating = "Awesome"))
                 }
             }
         }
